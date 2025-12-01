@@ -26,6 +26,9 @@ Procura um produto pelo nome e mostra seus dados.
 Permite modificar qualquer campo de um item já cadastrado.
 O usuário pode deixar qualquer campo em branco para manter o valor atual.
 
+### Gerar relatório
+Calcula e exibe um resumo geral do estoque, incluindo quantidade total de produtos, soma das quantidades, valor total estimado, categorias presentes e quais são o produto mais caro e o mais barato.
+
 ### Remover produto
 
 Apaga um item do estoque após confirmação do usuário.
@@ -39,6 +42,7 @@ Menu principal com as opções:
 3 - Buscar produto
 4 - Atualizar produto
 5 - Remover produto
+6 - Relatório do estoque
 0 - Sair
 ```
 ## Estruturas utilizadas
