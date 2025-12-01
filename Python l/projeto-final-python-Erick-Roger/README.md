@@ -92,3 +92,7 @@ Rode no terminal:
 ```bash
 python main.py
 ```
+
+## Intergrantes
+- Roger Oliveira Feitosa
+- Erick Ruan Nunes Vieira
