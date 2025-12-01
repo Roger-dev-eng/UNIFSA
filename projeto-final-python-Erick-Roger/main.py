@@ -6,26 +6,35 @@ estoque = []
 codigos_cadastrados = set()
 categorias_disponiveis = ("Alimentos", "Limpeza", "Bebidas")
 
+
 # Função para validar palavras vazias e números
 def validar_nome(nome):
     if not isinstance(nome, str):
         raise ValueError("O nome deve ser uma string.")
+
     nome_limpo = nome.strip()
+
     if nome_limpo == "":
         raise ValueError("Não deve ser um nome vazio. Insira um nome para continuar!")
+
     if nome_limpo.isdigit():
         raise ValueError("Não insira números no nome.")
+
     return nome_limpo
 
-# Função para validar o tipo do código e códigos já cadastratdos
+
+# Função para validar o tipo do código e códigos já cadastrados
 def validar_codigo(codigo):
     try:
         codigo = int(codigo)
     except ValueError:
         raise ValueError("O código deve ser um número inteiro.")
+
     if codigo in codigos_cadastrados:
         raise ValueError("Código já cadastrado. Tente outro.")
+
     return codigo
+
 
 # Validação do tipo do valor e valores negativos
 def validar_preco(valor):
@@ -33,9 +42,12 @@ def validar_preco(valor):
         preco = float(valor)
     except ValueError:
         raise ValueError("O preço deve ser um número válido.")
+
     if preco < 0:
         raise ValueError("O preço não pode ser negativo.")
+
     return preco
+
 
 # Validação do tipo da quantidade e valores negativos
 def validar_quantidade(qtd):
@@ -43,13 +55,17 @@ def validar_quantidade(qtd):
         qtd = int(qtd)
     except ValueError:
         raise ValueError("A quantidade deve ser um número inteiro.")
+
     if qtd < 0:
         raise ValueError("A quantidade não pode ser negativa.")
+
     return qtd
+
 
 # Função de cadastro de produtos com os tratamentos de erros
 def cadastrar_item():
     produto = {}
+
     while True:
         try:
             codigo = input("Insira o código do produto: ")
@@ -83,6 +99,7 @@ def cadastrar_item():
             break
         except ValueError as e:
             print(e)
+
     print("Categorias disponíveis:")
     for i, categoria in enumerate(categorias_disponiveis, start=1):
         print(f"{i} - {categoria}")
@@ -97,9 +114,11 @@ def cadastrar_item():
                 print("Escolha inválida. Tente novamente.")
         except ValueError:
             print("Digite um número válido.")
+
     estoque.append(produto)
     print("Produto adicionado com sucesso!")
     time.sleep(1)
+
 
 # Função para listar apenas um produto específico
 def buscar_item():
@@ -112,9 +131,11 @@ def buscar_item():
         print("Produto não encontrado")
     time.sleep(1)
 
+
 # Função para atualizar produto com os tratamentos de erros
 def atualizar_item():
     atualizar_produto = input("Digite o nome do produto que deseja atualizar: ")
+
     for produto in estoque:
         if produto['nome'].lower() == atualizar_produto.lower():
             print("Produto encontrado:")
@@ -160,6 +181,7 @@ def atualizar_item():
             print("Categorias disponíveis:")
             for i, categoria in enumerate(categorias_disponiveis, start=1):
                 print(f"{i} - {categoria}")
+
             nova_categoria = input("Nova categoria (número): ")
             if nova_categoria.strip():
                 try:
@@ -170,12 +192,15 @@ def atualizar_item():
                         print("Categoria inexistente, mantendo atual.")
                 except ValueError:
                     print("Categoria inválida, mantendo atual.")
+
             print("Produto atualizado com sucesso!")
             print(produto)
             time.sleep(1)
             return
+
     print("Produto não encontrado.")
     time.sleep(1)
+
 
 # Função para listar todos os itens
 def listar_item():
@@ -184,16 +209,19 @@ def listar_item():
     else:
         for produto in estoque:
             print(produto)
-    time.sleep(1)    
+    time.sleep(1)
+
 
 # Função para remover produto
 def remover_item():
     deletar_produto = input("Digite o nome do produto que deseja deletar: ")
+
     for produto in estoque:
         if produto['nome'] == deletar_produto:
             print("Produto encontrado:")
             print(produto)
             exclusao = input("Deseja realmente excluir esse produto? s/n ")
+
             if exclusao == 's':
                 estoque.remove(produto)
                 codigos_cadastrados.discard(produto['código'])
@@ -203,38 +231,73 @@ def remover_item():
             break
     else:
         print("Produto não encontrado.")
+
     time.sleep(1)
+
+
+# Função de gerar relatório, mostrando a quantidade de produtos, o valor total estimado, e os produtos mais caros e mais baratos
+def gerar_relatorio():
+    print("\n--- RELATÓRIO DO ESTOQUE ---")
+
+    total_produtos = len(estoque)
+    total_quantidade = sum(prod["quantidade"] for prod in estoque)
+    valor_total = sum(prod["preço"] * prod["quantidade"] for prod in estoque)
+
+    if estoque:
+        mais_caro = max(estoque, key=lambda x: x["preço"])
+        mais_barato = min(estoque, key=lambda x: x["preço"])
+        categorias = {prod["categoria"] for prod in estoque}
+    else:
+        mais_caro = mais_barato = None
+        categorias = set()
+
+    print(f"Total de produtos cadastrados: {total_produtos}")
+    print(f"Quantidade total em estoque: {total_quantidade}")
+    print(f"Valor total estimado: R$ {valor_total:.2f}")
+    print(f"Categorias presentes: {', '.join(categorias) if categorias else 'Nenhuma'}")
+
+    if mais_caro:
+        print(f"Produto mais caro: {mais_caro['nome']} (R$ {mais_caro['preço']:.2f})")
+    if mais_barato:
+        print(f"Produto mais barato: {mais_barato['nome']} (R$ {mais_barato['preço']:.2f})")
+
+    time.sleep(2)
+
 
 # Função principal
 def menu():
-  while True:
-      print("-----Estoque dos produtos-----")
-      print("1 - Cadastrar produto")
-      print("2 - Listar produtos")
-      print("3 - Buscar produto")
-      print("4 - Atualizar produto")
-      print("5 - Remover produto")
-      print("0 - Sair")
+    while True:
+        print("-----Estoque dos produtos-----")
+        print("1 - Cadastrar produto")
+        print("2 - Listar produtos")
+        print("3 - Buscar produto")
+        print("4 - Atualizar produto")
+        print("5 - Remover produto")
+        print("6 - Relatório do estoque") 
+        print("0 - Sair")
 
-      try:
-          escolha = int(input("Digite um número(0-5): "))
-      except ValueError:
-          print("Erro. Digite apenas um número de 1 a 5!")
-          continue
+        try:
+            escolha = int(input("Digite um número(0-6): "))
+        except ValueError:
+            print("Erro. Digite apenas um número de 0 a 6!")
+            continue
 
-      if escolha == 1:
-          cadastrar_item()
-      elif escolha == 2:
-          listar_item()
-      elif escolha == 3:
-          buscar_item()
-      elif escolha == 4:
-          atualizar_item()
-      elif escolha == 5:
-          remover_item()
-      elif escolha == 0:
-          break
-      else:
-          print("Erro! Digite um número válido.")
+        if escolha == 1:
+            cadastrar_item()
+        elif escolha == 2:
+            listar_item()
+        elif escolha == 3:
+            buscar_item()
+        elif escolha == 4:
+            atualizar_item()
+        elif escolha == 5:
+            remover_item()
+        elif escolha == 6:
+            gerar_relatorio()
+        elif escolha == 0:
+            break
+        else:
+            print("Erro! Digite um número válido.")
+
+
 menu()
-
