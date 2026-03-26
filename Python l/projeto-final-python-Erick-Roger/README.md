@@ -1,6 +1,6 @@
 # Sistema de Controle de produtos
 Este projeto é um sistema de gerenciamento de estoque desenvolvido em Python.
-Ele permite cadastrar, atualizar, buscar, listar e remover produtos, com tratamento de erros e validações para evitar entradas inválidas.
+Ele permite cadastrar, atualizar, buscar, listar, gerar relatório e remover produtos, com tratamento de erros e validações para evitar entradas inválidas.
 O sistema funciona totalmente no terminal e utiliza estruturas básicas como listas, dicionários e funções. 
 Tem como objetivo praticar manipulação de listas e dicionários, trabalhar com funções e modularização, e por último, aplicar validação e tratamento de erros
 ## Funcionalidades do Sistema
