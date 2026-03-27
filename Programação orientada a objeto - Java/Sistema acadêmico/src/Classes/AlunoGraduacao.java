@@ -4,8 +4,9 @@ public class AlunoGraduacao extends Aluno {
     public AlunoGraduacao() {
     }
 
+    @Override
     public void verificarAprovacao() {
-        if (getnotaFinal() >= 7) {
+        if (getNotaFinal() >= 7) {
             System.out.println("Aluno aprovado.");
         }
         else {
