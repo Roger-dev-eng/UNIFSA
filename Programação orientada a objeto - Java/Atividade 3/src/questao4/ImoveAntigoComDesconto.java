@@ -1,4 +1,4 @@
-package questao04;
+package questao4;
 
 public class ImoveAntigoComDesconto extends Imovel {
     private double percentualDesconto;

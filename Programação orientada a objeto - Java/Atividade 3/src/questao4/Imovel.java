@@ -1,4 +1,4 @@
-package questao04;
+package questao4;
 
 public class Imovel {
     private String endereco;
