@@ -1,12 +1,12 @@
 public class Venda {
     public void processarItem(Produto p, int quantidade) {
         if (p == null) {
-            System.out.println("Produto invalido.");
+            System.out.println("Produto inválido.");
             return;
         }
 
         if (quantidade <= 0) {
-            System.out.println("Quantidade invalida.");
+            System.out.println("Quantidade inválida.");
             return;
         }
 
